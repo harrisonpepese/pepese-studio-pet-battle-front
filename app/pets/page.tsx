@@ -1,9 +1,20 @@
-import PaperAtom from "@/components/atom/Paper";
+"use client";
+import PetListCard from "@/components/organism/PetListCard";
+import PetSlotMachine from "@/components/organism/PetSlotMachine";
+import BaseTemplate from "@/components/template/BaseTemplate";
 
 export default function PetsPage() {
   return (
-    <div>
-      <PaperAtom>hello</PaperAtom>
-    </div>
+    <BaseTemplate>
+      <PetSlotMachine />
+      <PetListCard
+        name="hello"
+        level={1}
+        percentToNextLevel={10}
+        totalBattles={20}
+        type="normal"
+        wins={10}
+      />
+    </BaseTemplate>
   );
 }
