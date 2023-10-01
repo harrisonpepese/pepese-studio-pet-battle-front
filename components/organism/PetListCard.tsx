@@ -9,6 +9,7 @@ export type PetListCardProps = {
   type: string;
   totalBattles: number;
   wins: number;
+  onClick: ()=>void;
 };
 
 const PetListCard: NextPage<PetListCardProps> = ({
@@ -18,9 +19,10 @@ const PetListCard: NextPage<PetListCardProps> = ({
   type,
   totalBattles,
   wins,
+  onClick
 }) => {
   return (
-    <Paper sx={{ display: "inline-block", p: 2 }}>
+    <Paper sx={{ display: "inline-block", p: 2 }} onClick={onClick}>
       <Typography variant="h6">{name}</Typography>
       <Box display="flex">
         <div>
