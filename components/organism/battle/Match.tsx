@@ -1,6 +1,7 @@
 import { BattlePetInfo } from "@/components/molecule/BattlePetInfo";
 import { BattleContext } from "@/context/BattleContext";
 import { EBattleAction } from "@/types/battle/battleAction.enum";
+import { EBattleStatus } from "@/types/battle/battleStatus.enum";
 import { Box, Button, Typography } from "@mui/material";
 import { useContext } from "react";
 
@@ -34,24 +35,28 @@ export function Match() {
         <Button
           variant="contained"
           onClick={() => sendRoundAction(EBattleAction.attack)}
+          disabled={battle.status === EBattleStatus.finished}
         >
           Basic attack
         </Button>
         <Button
           variant="contained"
           onClick={() => sendRoundAction(EBattleAction.defense)}
+          disabled={battle.status === EBattleStatus.finished}
         >
           Defensive Position
         </Button>
         <Button
           variant="contained"
           onClick={() => sendRoundAction(EBattleAction.dodge)}
+          disabled={battle.status === EBattleStatus.finished}
         >
           Try dodge
         </Button>
         <Button
           variant="contained"
           onClick={() => sendRoundAction(EBattleAction.rest)}
+          disabled={battle.status === EBattleStatus.finished}
         >
           Rest
         </Button>

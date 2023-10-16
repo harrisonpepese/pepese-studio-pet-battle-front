@@ -1,6 +1,7 @@
 "use client";
 import { socket } from "@/services/socket.service";
 import { EBattleAction } from "@/types/battle/battleAction.enum";
+import { EBattleEvents } from "@/types/battle/battleEvent";
 import { EBattleType } from "@/types/battle/battletype.enum";
 import React, { createContext, useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
@@ -36,7 +37,7 @@ export const BattleContextProvider: React.FC<{ children: any }> = ({
   };
   useEffect(() => {
     const localToken =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRpbGFwaW9AZ21haWwuY29tIiwic3ViIjoiNjUyMmIyMjdmM2QxZmMzZjJkNjkxMDhhIiwicGxheWVySWQiOiI2NTI5NzRhMzE3NWQ5NzkyNjJkOWQ5YzIiLCJpYXQiOjE2OTcyMTYyODIsImV4cCI6MTY5NzMwMjY4Mn0.mp2iL_F96e-fIfw-iMvXrfOtnbiTuU3em7XMcCecvR4";
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRpbGFwaW9AZ21haWwuY29tIiwic3ViIjoiNjUyMmIyMjdmM2QxZmMzZjJkNjkxMDhhIiwicGxheWVySWQiOiI2NTI5NzRhMzE3NWQ5NzkyNjJkOWQ5YzIiLCJpYXQiOjE2OTc0NjU0NDMsImV4cCI6MTY5NzU1MTg0M30.7YhRiWi0JtBN1avx--eRr8rKmnhFEgYYu6-5Eq_Jkhs";
     if (localToken) {
       console.log(localToken);
       socket.io.opts.extraHeaders = { authorization: localToken };
@@ -57,7 +58,7 @@ export const BattleContextProvider: React.FC<{ children: any }> = ({
     }
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
-    socket.on("battleChange", onBattleChange);
+    socket.on(EBattleEvents.onBattleChange, onBattleChange);
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
