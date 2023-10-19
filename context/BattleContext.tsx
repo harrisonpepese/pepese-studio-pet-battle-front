@@ -4,8 +4,6 @@ import { EBattleAction } from "@/types/battle/battleAction.enum";
 import { EBattleEvents } from "@/types/battle/battleEvent";
 import { EBattleType } from "@/types/battle/battletype.enum";
 import React, { createContext, useEffect, useState } from "react";
-import { Socket } from "socket.io-client";
-import { io } from "socket.io-client";
 
 type BattleContextType = {
   battle: any;
@@ -29,7 +27,6 @@ export const BattleContextProvider: React.FC<{ children: any }> = ({
   };
 
   const sendRoundAction = (action: EBattleAction) => {
-    console.log(action);
     socket.emit("setRoundAction", { battleUuid: battle.uuid, action });
   };
   const reset = () => {
@@ -37,9 +34,8 @@ export const BattleContextProvider: React.FC<{ children: any }> = ({
   };
   useEffect(() => {
     const localToken =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRpbGFwaW9AZ21haWwuY29tIiwic3ViIjoiNjUyMmIyMjdmM2QxZmMzZjJkNjkxMDhhIiwicGxheWVySWQiOiI2NTI5NzRhMzE3NWQ5NzkyNjJkOWQ5YzIiLCJpYXQiOjE2OTc0NjU0NDMsImV4cCI6MTY5NzU1MTg0M30.7YhRiWi0JtBN1avx--eRr8rKmnhFEgYYu6-5Eq_Jkhs";
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRpbGFwaW9AZ21haWwuY29tIiwic3ViIjoiNjUyMmIyMjdmM2QxZmMzZjJkNjkxMDhhIiwicGxheWVySWQiOiI2NTI5NzRhMzE3NWQ5NzkyNjJkOWQ5YzIiLCJpYXQiOjE2OTc3Mjg2ODYsImV4cCI6MTY5NzgxNTA4Nn0.zN1F55adVlc39RAxOqeh_omvgBDEGobF7CM0JlG_niw";
     if (localToken) {
-      console.log(localToken);
       socket.io.opts.extraHeaders = { authorization: localToken };
       socket.disconnect().connect();
     }
@@ -53,16 +49,26 @@ export const BattleContextProvider: React.FC<{ children: any }> = ({
       console.log("disconnected");
     }
     function onBattleChange(data: any) {
-      console.log(data);
       setBattle(data);
     }
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
+    socket.on(EBattleEvents.end, onBattleChange);
     socket.on(EBattleEvents.onBattleChange, onBattleChange);
+    socket.on(EBattleEvents.timerTick, onBattleChange);
+    socket.on(EBattleEvents.start, onBattleChange);
+    socket.on(EBattleEvents.roundStart, onBattleChange);
+    socket.on(EBattleEvents.roundEnd, onBattleChange);
+
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
-      socket.off("battleChange", onBattleChange);
+      socket.off(EBattleEvents.onBattleChange, onBattleChange);
+      socket.off(EBattleEvents.timerTick, onBattleChange);
+      socket.off(EBattleEvents.start, onBattleChange);
+      socket.off(EBattleEvents.roundStart, onBattleChange);
+      socket.off(EBattleEvents.roundEnd, onBattleChange);
+      socket.off(EBattleEvents.end, onBattleChange);
     };
   }, []);
   return (

@@ -11,6 +11,11 @@ export function Match() {
   return (
     <Box display="flex" flexDirection="column">
       <Typography>Battle uuid: {battle.uuid}</Typography>
+      <Typography>Battle status: {battle.status}</Typography>
+      <Typography>Battle type: {battle.battleType}</Typography>
+      <Typography>Battle winner: {battle.winner}</Typography>
+      <Typography>timer: {battle.timerSeconds}</Typography>
+
       <Button variant="contained" onClick={() => reset()}>
         reset
       </Button>
@@ -61,6 +66,12 @@ export function Match() {
           Rest
         </Button>
       </Box>
+      {battle?.endedRounds.map((x: any, i: number) => (
+        <Typography key={i}>
+          blueAction: {x.blueAction?.action ?? "none"} redAction:{" "}
+          {x.redAction.action}
+        </Typography>
+      ))}
     </Box>
   );
 }

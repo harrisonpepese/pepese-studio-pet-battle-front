@@ -1,7 +1,8 @@
 export enum EBattleEvents {
-  start = "start",
+  start = "battleStart",
+  timerTick = "timerTick",
   roundStart = "roundStart",
   roundEnd = "roundEnd",
-  end = "end",
+  end = "battleEnd",
   onBattleChange = "battleChange",
 }
