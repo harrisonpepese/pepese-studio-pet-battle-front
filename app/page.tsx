@@ -4,9 +4,9 @@ import { Button } from "@mui/material";
 
 export default function Home() {
   return (
-    <BaseTemplate>
+    <div>
       <div>hello</div>
       <Button>hello</Button>
-    </BaseTemplate>
+    </div>
   );
 }

@@ -6,9 +6,7 @@ import { BattleContextProvider } from "@/context/BattleContext";
 export default function PetsPage() {
   return (
     <BattleContextProvider>
-      <BaseTemplate>
-        <BattleTemplate />
-      </BaseTemplate>
+      <BattleTemplate />
     </BattleContextProvider>
   );
 }
