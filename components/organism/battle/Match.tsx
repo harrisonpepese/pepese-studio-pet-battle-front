@@ -8,6 +8,7 @@ import { useContext } from "react";
 export function Match() {
   const { reset, battle, sendRoundAction } = useContext(BattleContext);
   const { blueTeam, redTeam } = battle;
+  console.log(blueTeam.pet);
   return (
     <Box display="flex" flexDirection="column">
       <Typography>Battle uuid: {battle.uuid}</Typography>
@@ -26,6 +27,7 @@ export function Match() {
           stamina={blueTeam.pet.status.currentStamina}
           maxstamina={blueTeam.pet.status.stamina}
           maxLife={blueTeam.pet.status.health}
+          xp={blueTeam.pet.experience}
         />
         <Typography variant="h3">X</Typography>
         <BattlePetInfo
@@ -34,6 +36,7 @@ export function Match() {
           stamina={redTeam.pet.status.currentStamina}
           maxstamina={redTeam.pet.status.stamina}
           maxLife={redTeam.pet.status.health}
+          xp={redTeam.pet.experience}
         />
       </Box>
       <Box display="flex" justifyContent="center" alignItems="center" gap={2}>

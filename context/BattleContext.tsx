@@ -1,5 +1,6 @@
 "use client";
 import { socket } from "@/services/socket.service";
+import TokenService from "@/services/token.service";
 import { EBattleAction } from "@/types/battle/battleAction.enum";
 import { EBattleEvents } from "@/types/battle/battleEvent";
 import { EBattleType } from "@/types/battle/battletype.enum";
@@ -33,8 +34,7 @@ export const BattleContextProvider: React.FC<{ children: any }> = ({
     setBattle(undefined);
   };
   useEffect(() => {
-    const localToken =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRpbGFwaW9AZ21haWwuY29tIiwic3ViIjoiNjUyMmIyMjdmM2QxZmMzZjJkNjkxMDhhIiwicGxheWVySWQiOiI2NTI5NzRhMzE3NWQ5NzkyNjJkOWQ5YzIiLCJpYXQiOjE2OTc3Mjg2ODYsImV4cCI6MTY5NzgxNTA4Nn0.zN1F55adVlc39RAxOqeh_omvgBDEGobF7CM0JlG_niw";
+    const localToken = `Bearer ${TokenService.getToken()}`;
     if (localToken) {
       socket.io.opts.extraHeaders = { authorization: localToken };
       socket.disconnect().connect();

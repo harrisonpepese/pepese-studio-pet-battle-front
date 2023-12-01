@@ -7,6 +7,7 @@ export type BattlePetInfoProps = {
   maxLife: number;
   stamina: number;
   maxstamina: number;
+  xp: number;
 };
 export function BattlePetInfo({
   petName,
@@ -14,11 +15,13 @@ export function BattlePetInfo({
   maxLife,
   stamina,
   maxstamina,
+  xp,
 }: BattlePetInfoProps) {
   return (
     <Box display="flex" flexDirection="column">
       <Box>Player: playername</Box>
       <Box>Pet: {petName}</Box>
+      <Box>xp: {xp}</Box>
       <Box>
         <Box display="flex" flexDirection="row" justifyContent="space-between">
           <Typography component="span">life:</Typography>

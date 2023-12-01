@@ -16,7 +16,7 @@ export default function BattleTemplate() {
     <>
       <Button
         onClick={() => {
-          findMatch("65297f3828143201ea5f72c6", EBattleType.pve);
+          findMatch("65690e519a913a3d603b274d", EBattleType.pve);
         }}
       >
         Find Pve Battle
